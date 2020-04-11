@@ -12,6 +12,6 @@ func Serve() {
 		fmt.Fprintf(w, "Hello %s\n", greeter.Name)
 	})
 
-	fmt.Println("Listening on :8080...")
+	fmt.Println("Listening for HTTP on :8080...")
 	http.ListenAndServe(":8080", nil)
 }

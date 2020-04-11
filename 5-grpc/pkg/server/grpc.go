@@ -2,6 +2,7 @@ package server
 
 import (
 	"context"
+	"fmt"
 	"net"
 
 	"google.golang.org/grpc"
@@ -21,5 +22,6 @@ func ServeGrpc() {
 	srv := grpc.NewServer()
 	pb.RegisterHelloServer(srv, &Hello{})
 
+	fmt.Println("Listening for gRPC on :50051...")
 	srv.Serve(sock)
 }
