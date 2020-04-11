@@ -87,6 +87,9 @@ protobuf_deps()
 
 
 # == GRPC - golang dependancies ==
+# I've manually written these, and put them in this file, to show how "code" and bazel dependencies are treated the same
+# Gazelle won't generate these for you, since they're a workspace thing and they interact with the outside world. For example, what versions would it pick?
+# What it can do, is let you manage your deps with go get, and then generate these from a go.mod file.
 
 # The go_repository() rule actually comes from the gazelle repo, don't ask
 
