@@ -1,6 +1,5 @@
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
-
 # == GOLANG ==
 
 # Load the rules' repo
@@ -22,7 +21,6 @@ go_rules_dependencies()
 # Install a Golang toolchain into the sandbox
 go_register_toolchains()
 
-
 # == BAZEL ==
 
 # Repo
@@ -40,7 +38,6 @@ load("@bazel_gazelle//:deps.bzl", "gazelle_dependencies", "go_repository")
 
 # Deps for the gazelle rules
 gazelle_dependencies()
-
 
 # == DOCKER ==
 
@@ -65,7 +62,6 @@ load("@io_bazel_rules_docker//go:image.bzl", _go_image_repos = "repositories")
 # Execute
 _go_image_repos()
 
-
 # == GRPC ==
 
 # Load library code, for fetching repos over git
@@ -73,10 +69,10 @@ load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
 
 # Load the rules' repo
 git_repository(
-  name = "com_google_protobuf",
-  commit = "d0bfd5221182da1a7cc280f3337b5e41a89539cf", # v3.11.4
-  remote = "https://github.com/protocolbuffers/protobuf",
-  shallow_since = "1581711200 -0800",
+    name = "com_google_protobuf",
+    commit = "d0bfd5221182da1a7cc280f3337b5e41a89539cf",  # v3.11.4
+    remote = "https://github.com/protocolbuffers/protobuf",
+    shallow_since = "1581711200 -0800",
 )
 
 # From that repo, load these macors
@@ -84,7 +80,6 @@ load("@com_google_protobuf//:protobuf_deps.bzl", "protobuf_deps")
 
 # Execute
 protobuf_deps()
-
 
 # == GRPC - golang dependancies ==
 # I've manually written these, and put them in this file, to show how "code" and bazel dependencies are treated the same
@@ -96,34 +91,20 @@ protobuf_deps()
 go_repository(
     name = "org_golang_google_grpc",
     importpath = "google.golang.org/grpc",
-    sum = "h1:zvIju4sqAGvwKspUQOhwnpcqSbzi7/H6QomNNjTL4sk=",
-    version = "v1.27.1",
-)
-
-go_repository(
-    name = "org_golang_x_crypto",
-    importpath = "golang.org/x/crypto",
-    sum = "h1:VklqNMn3ovrHsnt90PveolxSbWFaJdECFbxSq0Mqo2M=",
-    version = "v0.0.0-20190308221718-c2843e01d9a2",
+    sum = "h1:C1QC6KzgSiLyBabDi87BbjaGreoRgGUF5nOyvfrAZ1k=",
+    version = "v1.28.1",
 )
 
 go_repository(
     name = "org_golang_x_net",
     importpath = "golang.org/x/net",
-    sum = "h1:CCH4IOTTfewWjGOlSp+zGcjutRKlBEZQ6wTn8ozI/nI=",
-    version = "v0.0.0-20200202094626-16171245cfb2",
-)
-
-go_repository(
-    name = "org_golang_x_sys",
-    importpath = "golang.org/x/sys",
-    sum = "h1:1BGLXjeY4akVXGgbC9HugT3Jv3hCI0z56oJR5vAMgBU=",
-    version = "v0.0.0-20190215142949-d0b11bdaac8a",
+    sum = "h1:3G+cUijn7XD+S4eJFddp53Pv7+slrESplyjG25HgL+k=",
+    version = "v0.0.0-20200324143707-d3edc9973b7e",
 )
 
 go_repository(
     name = "org_golang_x_text",
     importpath = "golang.org/x/text",
-    sum = "h1:g61tztE5qeGQ89tm6NTjjM9VPIm088od1l6aSorWRWg=",
-    version = "v0.3.0",
+    sum = "h1:tW2bmiBqwgJj/UpqtC8EpXEZVYOwU0yG4iWbprSVAcs=",
+    version = "v0.3.2",
 )
