@@ -1,0 +1,9 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "go_default_library",
+    srcs = ["http.go"],
+    importpath = "github.com/mt165/intro-to-bazel/pkg/server",
+    visibility = ["//visibility:public"],
+    deps = ["//pkg/greeter:go_default_library"],
+)
