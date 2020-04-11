@@ -1,17 +1,11 @@
 load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library")
 
-go_library(
-    name = "go_default_library",
+go_binary(
+    name = "hello",
     srcs = ["hello.go"],
-    importpath = "github.com/mt165/intro-to-bazel",
-    visibility = ["//visibility:private"],
     deps = [
             "//pkg/server:go_default_library",
     ],
-)
-
-go_binary(
-    name = "hello",
-    embed = [":go_default_library"],
+    importpath = "github.com/mt165/intro-to-bazel",
     visibility = ["//visibility:public"],
 )
