@@ -11,9 +11,8 @@ bazel query 'deps(//:hello)' --output graph > hello.dot && dot -Tpng < hello.dot
 add pkg/server/http.go (package server)
 add BUILD.bazel file for that (just go_library, make/keep it private)
 bazel build //pkg/server
+bazel build //pkg/server:go_default_library
 bazel build //pkg/server:*
-bazel run //:hello
-change server visibility to public
 bazel run //:hello
 
 # THREE - gazelle
@@ -22,7 +21,7 @@ edit pkg/server/http.go
 bazel run //:hello
 would be tedious to go through all that stuff again
 edit WORKSPACE
-edit BUILD # mixing things here cause we shouldn't have go code in /# mixing things here cause we shouldn't have go code in /
+edit BUILD # mixing things here cause we shouldn't have go code in /
 bazel run //:gazelle
 cat pkg/greeter/BUILD.bazel
 cat pkg/server/BUILD.bazel # see the deps, that comes from the import
