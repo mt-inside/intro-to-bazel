@@ -1,0 +1,7 @@
+load("@bazel_gazelle//:def.bzl", "gazelle")
+
+# gazelle:prefix github.com/mt165/intro-to-bazel
+gazelle(
+    # Makes a target here (the root), so that we can run gazelle (as //:gazelle)
+    name = "gazelle",
+)
