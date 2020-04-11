@@ -1,5 +1,7 @@
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
+# == GOLANG ==
+
 # Load the rules' repo
 http_archive(
     name = "io_bazel_rules_go",
@@ -19,6 +21,9 @@ go_rules_dependencies()
 # Install a Golang toolchain into the sandbox
 go_register_toolchains()
 
+
+# == GAZELLE ==
+
 # Repo
 http_archive(
     name = "bazel_gazelle",
@@ -34,6 +39,9 @@ load("@bazel_gazelle//:deps.bzl", "gazelle_dependencies")
 
 # Deps for the gazelle rules
 gazelle_dependencies()
+
+
+# == DOCKER ==
 
 # Load the rules' repo
 http_archive(

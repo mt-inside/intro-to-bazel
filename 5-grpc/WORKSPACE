@@ -1,5 +1,8 @@
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
+
+# == GOLANG ==
+
 # Load the rules' repo
 http_archive(
     name = "io_bazel_rules_go",
@@ -19,6 +22,9 @@ go_rules_dependencies()
 # Install a Golang toolchain into the sandbox
 go_register_toolchains()
 
+
+# == BAZEL ==
+
 # Repo
 http_archive(
     name = "bazel_gazelle",
@@ -34,6 +40,9 @@ load("@bazel_gazelle//:deps.bzl", "gazelle_dependencies", "go_repository")
 
 # Deps for the gazelle rules
 gazelle_dependencies()
+
+
+# == DOCKER ==
 
 # Load the rules' repo
 http_archive(
@@ -55,6 +64,31 @@ load("@io_bazel_rules_docker//go:image.bzl", _go_image_repos = "repositories")
 
 # Execute
 _go_image_repos()
+
+
+# == GRPC ==
+
+# Load library code, for fetching repos over git
+load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
+
+# Load the rules' repo
+git_repository(
+  name = "com_google_protobuf",
+  commit = "09745575a923640154bcf307fba8aedff47f240a",
+  remote = "https://github.com/protocolbuffers/protobuf",
+  shallow_since = "1558721209 -0700",
+)
+
+# From that repo, load these macors
+load("@com_google_protobuf//:protobuf_deps.bzl", "protobuf_deps")
+
+# Execute
+protobuf_deps()
+
+
+# == GRPC - golang dependancies ==
+
+# The go_repository() rule actually comes from the gazelle repo, don't ask
 
 go_repository(
     name = "org_golang_google_grpc",
@@ -90,13 +124,3 @@ go_repository(
     sum = "h1:g61tztE5qeGQ89tm6NTjjM9VPIm088od1l6aSorWRWg=",
     version = "v0.3.0",
 )
-
-load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
-git_repository(
-  name = "com_google_protobuf",
-  commit = "09745575a923640154bcf307fba8aedff47f240a",
-  remote = "https://github.com/protocolbuffers/protobuf",
-  shallow_since = "1558721209 -0700",
-)
-load("@com_google_protobuf//:protobuf_deps.bzl", "protobuf_deps")
-protobuf_deps()
