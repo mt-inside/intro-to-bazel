@@ -1,28 +1,23 @@
-load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library")
+# == GAZELLE ==
+
+load("@bazel_gazelle//:def.bzl", "gazelle")
+
+# gazelle:prefix github.com/mt165/intro-to-bazel
+gazelle(
+    # Makes a target here (the root), so that we can run gazelle (as //:gazelle)
+    name = "gazelle",
+)
+
+# == DOCKER ==
+
 load("@io_bazel_rules_docker//go:image.bzl", "go_image")
 load("@io_bazel_rules_docker//container:container.bzl", "container_push")
-
-go_library(
-    name = "go_default_library",
-    srcs = ["hello.go"],
-    importpath = "github.com/mt165/intro-to-bazel",
-    visibility = ["//visibility:private"],
-    deps = [
-        "//pkg/server:go_default_library",
-    ],
-)
-
-go_binary(
-    name = "hello",
-    embed = [":go_default_library"],
-    visibility = ["//visibility:public"],
-)
 
 # `build` will make the tarball in the sandbox (won't, eg, load into local daemon)
 # `run` will (docker) load into the local daemon and run
 go_image(
     name = "hello_image",
-    binary = "hello",
+    binary = "//cmd/hello:hello",
     visibility = ["//visibility:public"],
 )
 
@@ -34,8 +29,3 @@ container_push(
     repository = "mtinside/intro-to-bazel",
     tag = "doxlon",
 )
-
-load("@bazel_gazelle//:def.bzl", "gazelle")
-
-# gazelle:prefix github.com/mt165/intro-to-bazel
-gazelle(name = "gazelle")  # Makes a target here (the root), so that we can run gazelle (as //:gazelle)
