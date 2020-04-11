@@ -4,8 +4,9 @@ import (
 	"context"
 	"net"
 
-	pb "github.com/mt165/intro-to-bazel/api"
 	"google.golang.org/grpc"
+
+	pb "github.com/mt165/intro-to-bazel/api"
 )
 
 type Hello struct{}
