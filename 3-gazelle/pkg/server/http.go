@@ -9,7 +9,7 @@ import (
 
 func Serve() {
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		fmt.Fprintf(w, "Hello %s\n", greeter.Name)
+		fmt.Fprintf(w, "Hello %s\n", greeter.Name())
 	})
 
 	fmt.Println("Listening on :8080...")

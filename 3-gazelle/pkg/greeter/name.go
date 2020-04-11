@@ -1,3 +1,5 @@
 package greeter
 
-var Name = "doxlon"
+func Name() string {
+	return "doxlon"
+}
