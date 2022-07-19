@@ -23,8 +23,8 @@ go_image(
 
 container_push(
     name = "hello_push",
-    image = ":hello_image",
     format = "Docker",
+    image = ":hello_image",
     registry = "docker.io",
     repository = "mtinside/intro-to-bazel",
     tag = "doxlon",
